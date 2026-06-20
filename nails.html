@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nails | JM Beauty Lounge</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/44a0b9aeb6.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function(){
+    emailjs.init("2pr33n4moioxiD6dT");
+  })();
+</script>
+<link rel="stylesheet" href="nails.css">
+<style>
+.status-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  display: none;
+}
+.status-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+.status-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Gallery Section Styles */
+.gallery-section {
+  margin-bottom: 4rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  color: #d63384;
+}
+
+.see-all-btn {
+  background: #d63384;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+}
+
+.see-all-btn:hover {
+  background: #ff80ab;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(214, 51, 132, 0.3);
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  scroll-behavior: smooth;
+}
+
+.scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #d63384;
+  border-radius: 10px;
+}
+
+.scroll-container img {
+  min-width: 300px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.scroll-container img:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Gallery Page Styles */
+.gallery-page {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff3f8;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.gallery-page-header {
+  background: white;
+  padding: 1.5rem 5%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-btn {
+  background: #d63384;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  font-family: 'Poppins', sans-serif;
+}
+
+.back-btn:hover {
+  background: #ff80ab;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Detail Page Styles */
+.detail-page {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.detail-content {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.detail-image {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.detail-info h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #d63384;
+}
+
+.detail-info p {
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.book-now-btn {
+  background: #d63384;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+}
+
+.book-now-btn:hover {
+  background: #ff80ab;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(214, 51, 132, 0.3);
+}
+
+@media (max-width: 768px) {
+  .detail-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .scroll-container img {
+    min-width: 250px;
+    height: 300px;
+  }
+    @media (max-width: 768px) {
+  nav ul {
+    flex-wrap: wrap;
+  }
+  nav ul li {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">JM <span>Beauty Lounge</span></div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="hair.html">Hair</a></li>
+      <li><a href="nails.html">Nails</a></li>
+      <li><a href="makeup.html">Makeup</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Nails</h1>
+  <p>Beautiful manicures and pedicures for perfect nails.</p>
+</section>
+
+<main class="container" id="mainPage">
+  <section class="gallery">
+    <h2 style="color: #d63384; margin-bottom: 2rem;">Our Nail Designs</h2>
+    <div id="all-galleries">
+      <!-- All gallery sections will be populated by JavaScript -->
+    </div>
+  </section>
+</main>
+
+<!-- Gallery Page (See All) -->
+<div id="galleryPage" class="gallery-page">
+  <div class="gallery-page-header">
+    <h2 id="galleryPageTitle" style="color: #d63384;">Gallery</h2>
+    <button class="back-btn" onclick="closeGalleryPage()">← Back</button>
+  </div>
+  <div class="gallery-grid" id="galleryPageGrid">
+    <!-- Images will be populated by JavaScript -->
+  </div>
+</div>
+
+<!-- Detail Page -->
+<div id="detailPage" class="detail-page">
+  <div class="gallery-page-header">
+    <h2 id="detailPageTitle" style="color: #d63384;">Image Detail</h2>
+    <button class="back-btn" onclick="closeDetailPage()">← Back</button>
+  </div>
+  <div class="detail-content">
+    <img id="detailImage" class="detail-image" src="" alt="">
+    <div class="detail-info">
+      <h2 id="detailTitle">Nail Design</h2>
+      <p id="detailDescription">Beautiful nail design by our expert nail technicians.</p>
+      <button class="book-now-btn" onclick="openBookingFromDetail()">Book Now</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 JM Beauty Lounge. All rights reserved.</p>
+</footer>
+
+<!-- Booking Modal -->
+<div id="bookingModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeBookingModal()">&times;</span>
+    <h3 id="modalTitle">Book Service</h3>
+    <form id="modalForm">
+      <label>Name *</label><input type="text" name="name" required>
+      <label>Email *</label><input type="email" name="email" required>
+      <label>Phone *</label><input type="tel" name="phone" required>
+      <label>Preferred Date *</label><input type="date" name="preferredDate" required>
+      <label>Preferred Time *</label><input type="time" name="preferredTime" required>
+      <input type="hidden" name="service" id="modalService">
+      <input type="hidden" name="image" id="modalImage">
+      <label>Notes</label><textarea name="notes" placeholder="Any special requests"></textarea>
+      <button type="submit">Send Booking Request</button>
+    </form>
+    <div id="statusMessage" class="status-message"></div>
+  </div>
+</div>
+
+<script>
+// Image data - Host can edit this array to add/remove images
+const imageData = {
+  'Manicures': [
+    { src: 'images/manicure1.jpeg', name: 'Classic French Manicure', description: 'Timeless French manicure with elegant white tips' },
+    { src: 'images/manicure2.jpeg', name: 'Gel Manicure', description: 'Long-lasting gel polish manicure' },
+    { src: 'images/manicure3.jpeg', name: 'Ombre Nails', description: 'Beautiful gradient ombre nail design' },
+    { src: 'images/manicure4.jpeg', name: 'Chrome Nails', description: 'Shiny metallic chrome finish' },
+    { src: 'images/manicure5.jpeg', name: 'Glitter Manicure', description: 'Sparkling glitter nail design' }
+  ],
+  'Pedicures': [
+    { src: 'images/pedi1.jpg', name: 'Spa Pedicure', description: 'Relaxing spa pedicure with massage' },
+    { src: 'images/pedi2.jpg', name: 'French Pedicure', description: 'Classic French style for toes' },
+    { src: 'images/pedi3.jpg', name: 'Deluxe Pedicure', description: 'Premium pedicure treatment' },
+    { src: 'images/pedi4.jpg', name: 'Gel Pedicure', description: 'Long-lasting gel polish for toes' },
+    { src: 'images/pedi5.jpg', name: 'Express Pedicure', description: 'Quick and refreshing pedicure' }
+  ],
+  'Nail Art': [
+    { src: 'images/art1.jpg', name: 'Floral Design', description: 'Hand-painted floral nail art' },
+    { src: 'images/art2.jpg', name: 'Geometric Patterns', description: 'Modern geometric nail designs' },
+    { src: 'images/art3.jpg', name: 'Marble Effect', description: 'Elegant marble nail art' },
+    { src: 'images/art4.jpg', name: 'Crystal Embellishments', description: 'Nails decorated with crystals' },
+    { src: 'images/art5.jpg', name: 'Abstract Art', description: 'Creative abstract nail designs' }
+  ],
+  'Acrylic Nails': [
+    { src: 'images/acrylic1.jpg', name: 'Full Set Acrylics', description: 'Complete acrylic nail extensions' },
+    { src: 'images/acrylic2.jpg', name: 'Acrylic Fill', description: 'Acrylic maintenance and fill' },
+    { src: 'images/acrylic3.jpg', name: 'Stiletto Acrylics', description: 'Bold stiletto-shaped acrylics' },
+    { src: 'images/acrylic4.jpg', name: 'Coffin Shape', description: 'Trendy coffin-shaped acrylics' },
+    { src: 'images/acrylic5.jpg', name: 'Natural Look Acrylics', description: 'Natural-looking acrylic extensions' }
+  ]
+};
+
+let currentDetailImage = null;
+let currentCategory = null;
+
+// Initialize galleries
+function initGalleries() {
+  const container = document.getElementById('all-galleries');
+  
+  Object.keys(imageData).forEach(category => {
+    // Create section
+    const section = document.createElement('div');
+    section.className = 'gallery-section';
+    
+    // Create header
+    const header = document.createElement('div');
+    header.className = 'section-header';
+    
+    const heading = document.createElement('h2');
+    heading.textContent = category;
+    
+    const seeAllBtn = document.createElement('a');
+    seeAllBtn.href = '#';
+    seeAllBtn.className = 'see-all-btn';
+    seeAllBtn.textContent = 'See All';
+    seeAllBtn.onclick = (e) => {
+      e.preventDefault();
+      showGalleryPage(category);
+    };
+    
+    header.appendChild(heading);
+    header.appendChild(seeAllBtn);
+    
+    // Create scroll container
+    const scrollContainer = document.createElement('div');
+    scrollContainer.className = 'scroll-container';
+    
+    // Add images
+    imageData[category].forEach(image => {
+      const img = document.createElement('img');
+      img.src = image.src;
+      img.alt = image.name;
+      img.onclick = () => showDetailPage(image, category);
+      img.onerror = function() {
+        this.src = 'https://via.placeholder.com/300x350/d63384/ffffff?text=' + encodeURIComponent(image.name);
+      };
+      scrollContainer.appendChild(img);
+    });
+    
+    section.appendChild(header);
+    section.appendChild(scrollContainer);
+    container.appendChild(section);
+  });
+}
+
+function showGalleryPage(category) {
+  currentCategory = category;
+  document.getElementById('mainPage').style.display = 'none';
+  document.getElementById('galleryPage').style.display = 'block';
+  document.getElementById('galleryPageTitle').textContent = category;
+  
+  const grid = document.getElementById('galleryPageGrid');
+  grid.innerHTML = '';
+  
+  imageData[category].forEach(image => {
+    const img = document.createElement('img');
+    img.src = image.src;
+    img.alt = image.name;
+    img.onclick = () => showDetailPage(image, category);
+    img.onerror = function() {
+      this.src = 'https://via.placeholder.com/300x350/d63384/ffffff?text=' + encodeURIComponent(image.name);
+    };
+    grid.appendChild(img);
+  });
+}
+
+function closeGalleryPage() {
+  document.getElementById('galleryPage').style.display = 'none';
+  document.getElementById('mainPage').style.display = 'block';
+}
+
+function showDetailPage(image, category) {
+  currentDetailImage = image;
+  currentCategory = category;
+  
+  document.getElementById('mainPage').style.display = 'none';
+  document.getElementById('galleryPage').style.display = 'none';
+  document.getElementById('detailPage').style.display = 'block';
+  
+  const detailImg = document.getElementById('detailImage');
+  detailImg.src = image.src;
+  detailImg.alt = image.name;
+  detailImg.onerror = function() {
+    this.src = 'https://via.placeholder.com/800x800/d63384/ffffff?text=' + encodeURIComponent(image.name);
+  };
+  
+  document.getElementById('detailPageTitle').textContent = category;
+  document.getElementById('detailTitle').textContent = image.name;
+  document.getElementById('detailDescription').textContent = image.description;
+}
+
+function closeDetailPage() {
+  document.getElementById('detailPage').style.display = 'none';
+  if (currentCategory) {
+    showGalleryPage(currentCategory);
+  } else {
+    document.getElementById('mainPage').style.display = 'block';
+  }
+}
+
+function openBookingFromDetail() {
+  if (currentDetailImage) {
+    openBookingModal(currentDetailImage.name, currentDetailImage.src);
+  }
+}
+
+function openBookingModal(service, image) {
+  document.getElementById('bookingModal').style.display = 'flex';
+  document.getElementById('modalTitle').innerText = `Book: ${service}`;
+  document.getElementById('modalService').value = service;
+  document.getElementById('modalImage').value = image;
+  document.getElementById('statusMessage').style.display = 'none';
+}
+
+function closeBookingModal() { 
+  document.getElementById('bookingModal').style.display = 'none'; 
+  document.getElementById('modalForm').reset();
+  document.getElementById('statusMessage').style.display = 'none';
+}
+
+function showStatus(message, isSuccess) {
+  const statusDiv = document.getElementById('statusMessage');
+  statusDiv.textContent = message;
+  statusDiv.className = 'status-message ' + (isSuccess ? 'success' : 'error');
+  statusDiv.style.display = 'block';
+}
+
+document.getElementById('modalForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  
+  const form = e.target;
+  const submitButton = form.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  submitButton.textContent = 'Sending...';
+
+  const templateParams = {
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    phone: form.phone.value.trim(),
+    preferredDate: form.preferredDate.value,
+    preferredTime: form.preferredTime.value,
+    service: form.service.value,
+    image: form.image.value,
+    notes: form.notes.value.trim(),
+    to_email: 'jmwebsiteandgraphicdesign@gmail.com'
+  };
+
+  // Send email to host
+  emailjs.send('service_2x6lcmd', 'template_0ug0rfg', templateParams)
+    .then(function(response) {
+      console.log('Host email sent successfully!', response.status, response.text);
+      
+      // Send confirmation email to customer
+      const customerParams = {
+        name: templateParams.name,
+        email: templateParams.email,
+        phone: templateParams.phone,
+        preferredDate: templateParams.preferredDate,
+        preferredTime: templateParams.preferredTime,
+        service: templateParams.service,
+        image: templateParams.image,
+        notes: templateParams.notes,
+        to_email: templateParams.email
+      };
+      
+      return emailjs.send('service_2x6lcmd', 'template_r4hbtcg', customerParams);
+    })
+    .then(function(response) {
+      console.log('Customer confirmation sent successfully!', response.status, response.text);
+      showStatus('✓ Booking request sent successfully! Check your email for confirmation.', true);
+      setTimeout(() => {
+        closeBookingModal();
+      }, 2500);
+    })
+    .catch(function(error) {
+      console.log('FAILED...', error);
+      showStatus('✗ Failed to send booking request. Please try again or call us directly.', false);
+      submitButton.disabled = false;
+      submitButton.textContent = 'Send Booking Request';
+    });
+});
+
+// Initialize on page load
+initGalleries();
+</script>
+</body>
+</html>

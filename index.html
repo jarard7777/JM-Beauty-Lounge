@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JM Beauty Lounge</title>
+  <meta name="description" content="JM Beauty Lounge — Elegant hair, nail, and makeup services. Book your beauty session today!">
+  <meta name="keywords" content="salon, beauty lounge, hair, nails, makeup, skincare, appointment booking">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/44a0b9aeb6.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      emailjs.init("2pr33n4moioxiD6dT");
+    })();
+  </script>
+  <style>
+    /* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #fff3f8;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  background: white;
+  padding: 1.5rem 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+.logo {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #d63384;
+}
+.logo span {
+  color: #ff80ab;
+}
+nav {
+  text-align: center;
+  margin-top: 0.8rem;
+}
+nav ul {
+  list-style: none;
+  display: inline-flex;
+  gap: 1.5rem;
+}
+nav ul li a {
+  color: #d63384;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: 0.3s;
+  text-decoration: none;
+}
+nav ul li a:hover {
+  background: #ffb3c6;
+  color: white;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 6rem 1rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top:0; left:0; right:0; bottom:0;
+  background: linear-gradient(-45deg, #ff80ab, #d63384, #f6c0e0, #ffb3c6);
+  background-size: 400% 400%;
+  z-index: -2;
+  animation: gradientBG 15s ease infinite;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  z-index: -1;
+}
+@keyframes gradientBG {
+  0% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+.btn-primary {
+  background: #ffffffcc;
+  color: #d63384;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+.btn-primary:hover {
+  background: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Container & Sections */
+html { scroll-behavior: smooth; }
+.container {
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+section {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+section h2 {
+  color: #d63384;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  position: relative;
+}
+section h2::after {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 3px;
+  background: #ff80ab;
+  margin: 0.5rem auto 1.5rem;
+  border-radius: 5px;
+}
+
+/* Services List */
+.services-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+.service-item {
+  background: rgba(255,255,255,0.9);
+  border-radius: 15px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+}
+.service-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.service-item i {
+  font-size: 2rem;
+  color: #ff80ab;
+  margin-bottom: 1rem;
+}
+.service-item h3 {
+  color: #d63384;
+  margin-bottom: 0.5rem;
+}
+
+/* Appointment Form */
+.appointment-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+}
+.appointment-form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #d63384;
+}
+.appointment-form input,
+.appointment-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+.appointment-form input:focus,
+.appointment-form textarea:focus {
+  border-color: #ff80ab;
+  outline: none;
+}
+.appointment-form button {
+  margin-top: 1.5rem;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+/* Status Message */
+.status-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  display: none;
+}
+.status-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+.status-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Map Iframe */
+iframe {
+  border: 0;
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(90deg, #d63384, #ff80ab);
+  color: white;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+footer p { margin-bottom: 0.3rem; }
+.social-links a {
+  color: white;
+  margin: 0 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.social-links a:hover {
+  color: #ffe4ee;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.3rem; }
+  nav ul { flex-direction: column; align-items: center; }
+  nav ul li { margin: 0.5rem 0; }
+}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">JM <span>Beauty Lounge</span></div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="hair.html">Hair</a></li>
+        <li><a href="nails.html">Nails</a></li>
+        <li><a href="makeup.html">Makeup</a></li>
+        <li><a href="#book">Book</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h1>Where Beauty Meets Artistry</h1>
+    <p>Luxury hair, nails, and makeup designed to make you shine.</p>
+    <button class="btn-primary" onclick="scrollToBook()">Book Appointment</button>
+  </section>
+
+  <main class="container">
+    <section id="services">
+      <h2>Our Services</h2>
+      <div class="services-list">
+        <div class="service-item"><i class="fas fa-cut"></i><h3>Hair Styling</h3><p>Trendy cuts, color, and professional treatments for all hair types.</p></div>
+        <div class="service-item"><i class="fas fa-hand-sparkles"></i><h3>Nail Care</h3><p>Manicures, pedicures, acrylics, and gel polish with lasting shine.</p></div>
+        <div class="service-item"><i class="fas fa-air-freshener"></i><h3>Makeup</h3><p>Professional looks for weddings, events, or a glam night out.</p></div>
+        <div class="service-item"><i class="fas fa-spa"></i><h3>Skincare</h3><p>Relaxing facials and treatments for radiant, healthy skin.</p></div>
+      </div>
+    </section>
+
+    <section id="book">
+      <h2>Book an Appointment</h2>
+      <form class="appointment-form" id="appointmentForm">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required />
+        <label for="phone">Phone Number *</label>
+        <input type="tel" id="phone" name="phone" required />
+        <label for="preferredDate">Preferred Date *</label>
+        <input type="date" id="preferredDate" name="preferredDate" required />
+        <label for="preferredTime">Preferred Time *</label>
+        <input type="time" id="preferredTime" name="preferredTime" required />
+        <label for="service">Service Requested *</label>
+        <input type="text" id="service" name="service" placeholder="e.g. Haircut, Makeup, Nails" required />
+        <label for="notes">Additional Notes</label>
+        <textarea id="notes" name="notes" placeholder="Any special requests or details"></textarea>
+        <button type="submit" class="btn-primary">Send Booking Request</button>
+      </form>
+      <div id="statusMessage" class="status-message"></div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact & Location</h2>
+      <p><strong>Address:</strong> 22 Style Avenue, Sandton, Johannesburg</p>
+      <p><strong>Phone:</strong> +27 (0)11 999 1234</p>
+      <p><strong>Email:</strong> <a href="mailto:appointments@jmbeautylounge.co.za">appointments@jmbeautylounge.co.za</a></p>
+      <p><strong>Hours:</strong> Tuesday – Sunday, 9:00 AM – 7:00 PM</p>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3585.081218!2d28.039!3d-26.146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950c0f3dcbef8d%3A0x60e7b5ce2a6dfcb0!2sSandton%2C%20Johannesburg!5e0!3m2!1sen!2sza!4v1634659999999!5m2!1sen!2sza" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 JM Beauty Lounge. All rights reserved.</p>
+    <p>Website design by JM Website & Graphic Design</p>
+    <div class="social-links"><a href="#">Instagram</a> | <a href="#">Facebook</a></div>
+  </footer>
+
+  <script>
+    function scrollToBook() {
+      document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showStatus(message, isSuccess) {
+      const statusDiv = document.getElementById('statusMessage');
+      statusDiv.textContent = message;
+      statusDiv.className = 'status-message ' + (isSuccess ? 'success' : 'error');
+      statusDiv.style.display = 'block';
+      setTimeout(() => {
+        statusDiv.style.display = 'none';
+      }, 5000);
+    }
+
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitButton = this.querySelector('button[type="submit"]');
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+
+      const templateParams = {
+        name: this.name.value.trim(),
+        email: this.email.value.trim(),
+        phone: this.phone.value.trim(),
+        preferredDate: this.preferredDate.value,
+        preferredTime: this.preferredTime.value,
+        service: this.service.value.trim(),
+        notes: this.notes.value.trim(),
+        to_email: 'jmwebsiteandgraphicdesign@gmail.com'
+      };
+
+      // Send email to host
+      emailjs.send('service_2x6lcmd', 'template_0ug0rfg', templateParams)
+        .then(function(response) {
+          console.log('Host email sent successfully!', response.status, response.text);
+          
+          // Send confirmation email to customer
+          const customerParams = {
+            name: templateParams.name,
+            email: templateParams.email,
+            phone: templateParams.phone,
+            preferredDate: templateParams.preferredDate,
+            preferredTime: templateParams.preferredTime,
+            service: templateParams.service,
+            notes: templateParams.notes,
+            to_email: templateParams.email
+          };
+          
+          return emailjs.send('service_2x6lcmd', 'template_r4hbtcg', customerParams);
+        })
+        .then(function(response) {
+          console.log('Customer confirmation sent successfully!', response.status, response.text);
+          showStatus('✓ Booking request sent successfully! Check your email for confirmation.', true);
+          document.getElementById('appointmentForm').reset();
+          submitButton.disabled = false;
+          submitButton.textContent = 'Send Booking Request';
+        })
+        .catch(function(error) {
+          console.log('FAILED...', error);
+          showStatus('✗ Failed to send booking request. Please try again or call us directly.', false);
+          submitButton.disabled = false;
+          submitButton.textContent = 'Send Booking Request';
+        });
+    });
+  </script>
+</body>
+</html>
